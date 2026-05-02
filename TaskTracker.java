@@ -48,19 +48,39 @@ public class TaskTracker {
                 }
                 int id = Integer.parseInt(args[1]);
                 if (args.length < 3) {
-                    System.out.println("no status found, Ex: <update> <id> <status>");
+                    System.out.println("no description found, Ex: <update> <id> <description>");
                     return;
                 }
-                String statusStr = args[2];
-                Status newStatus;
-                try {
-                    newStatus = Status.valueOf(statusStr.toUpperCase().replace(" ", "_"));
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid status. Use: TODO, IN_PROGRESS, DONE");
-                    return;
-                }
-                taskManager.updateStatus(id, newStatus);
+                String newDescription = args[2];
+                taskManager.updateTaskDescription(id, newDescription);
                 break;
+            case "mark-todo":
+                if (args.length < 2) {
+                    System.out.println("no id found, Ex: <marktodo> <id>");
+                    return;
+                }
+                int markTodoId = Integer.parseInt(args[1]);
+                taskManager.markTaskTodo(markTodoId);
+                break;
+
+            case "mark-in-progress":
+                if (args.length < 2) {
+                    System.out.println("no id found, Ex: <markinprogress> <id>");
+                    return;
+                }
+                int markInProgressId = Integer.parseInt(args[1]);
+                taskManager.markTaskInProgress(markInProgressId);
+                break;
+
+            case "mark-done":
+                if (args.length < 2) {
+                    System.out.println("no id found, Ex: <markdone> <id>");
+                    return;
+                }
+                int markDoneId = Integer.parseInt(args[1]);
+                taskManager.markTaskDone(markDoneId);
+                break;
+
             case "delete":
                 if (args.length < 2) {
                     System.out.println("no id found, Ex: <delete> <id>");

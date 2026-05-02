@@ -63,15 +63,55 @@ public class TaskManager {
         }
     }
 
-    public void updateStatus(int id, Status newStatus) {
+    public void updateTaskDescription(int id, String newDescription) {
         List<TaskModel> tasks = loadTasks();
         Optional<TaskModel> taskOpt = tasks.stream().filter(t -> t.getId() == id).findFirst();
         if (taskOpt.isPresent()) {
             TaskModel task = taskOpt.get();
-            task.setStatus(newStatus);
+            task.setDescription(newDescription);
             task.setUpdatedAt(LocalDateTime.now());
             saveTasks(tasks);
-            System.out.println("Task updated: " + task.getDescription() + " is now " + newStatus.getValue());
+            System.out.println("Task updated: ID " + id + " description changed to \"" + newDescription + "\"");
+        } else {
+            System.out.println("Task not found with ID: " + id);
+        }
+    }
+
+    public void markTaskTodo(int id) {
+        List<TaskModel> tasks = loadTasks();
+        Optional<TaskModel> taskOpt = tasks.stream().filter(t -> t.getId() == id).findFirst();
+        if (taskOpt.isPresent()) {
+            TaskModel task = taskOpt.get();
+            task.setStatus(Status.TODO);
+            task.setUpdatedAt(LocalDateTime.now());
+            saveTasks(tasks);
+            System.out.println("Task updated: " + task.getDescription() + " is now " + Status.TODO.getValue());
+        } else {
+            System.out.println("Task not found with ID: " + id);
+        }
+    }
+    public void markTaskInProgress(int id) {
+        List<TaskModel> tasks = loadTasks();
+        Optional<TaskModel> taskOpt = tasks.stream().filter(t -> t.getId() == id).findFirst();
+        if (taskOpt.isPresent()) {
+            TaskModel task = taskOpt.get();
+            task.setStatus(Status.IN_PROGRESS);
+            task.setUpdatedAt(LocalDateTime.now());
+            saveTasks(tasks);
+            System.out.println("Task updated: " + task.getDescription() + " is now " + Status.IN_PROGRESS.getValue());
+        } else {
+            System.out.println("Task not found with ID: " + id);
+        }
+    }
+    public void markTaskDone(int id) {
+        List<TaskModel> tasks = loadTasks();
+        Optional<TaskModel> taskOpt = tasks.stream().filter(t -> t.getId() == id).findFirst();
+        if (taskOpt.isPresent()) {
+            TaskModel task = taskOpt.get();
+            task.setStatus(Status.DONE);
+            task.setUpdatedAt(LocalDateTime.now());
+            saveTasks(tasks);
+            System.out.println("Task updated: " + task.getDescription() + " is now " + Status.DONE.getValue());
         } else {
             System.out.println("Task not found with ID: " + id);
         }
