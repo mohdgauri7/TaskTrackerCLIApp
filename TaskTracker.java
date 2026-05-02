@@ -4,7 +4,7 @@ public class TaskTracker {
     public static void main(String [] args) {
 
         if (args.length < 1) {
-            System.out.println("no command found, Ex: <add> <Description>");
+            System.out.println("enter a valid command, Ex: <add> <Description>");
             return;
         }
 
